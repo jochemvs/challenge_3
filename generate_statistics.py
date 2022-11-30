@@ -2,9 +2,11 @@ import csv
 import numpy as np
 import matplotlib.pyplot as plt
 from prettytable import PrettyTable
+from get_crypto_data import get_history
 
 with open('crypto_daily_prices_365.csv', 'r', encoding='utf8') as data:
     crypto_data = np.genfromtxt('crypto_daily_prices_365.csv', delimiter=';', names=True)    
+    key = "Exiq4NbNJg6m9z5N"
     days = crypto_data["0"]
     albireo = crypto_data["Albireo"]
     bharani = crypto_data["Bharani"]
@@ -12,6 +14,7 @@ with open('crypto_daily_prices_365.csv', 'r', encoding='utf8') as data:
     dubhe = crypto_data["Dubhe"]    
     elgafar = crypto_data["Elgafar"]
     fawaris = crypto_data["Fawaris"]
+    xuange = get_history("XUA", key)['value']
     def ups_downs(crypto):
         lup = 0
         ldown = 0
@@ -44,11 +47,12 @@ with open('crypto_daily_prices_365.csv', 'r', encoding='utf8') as data:
     table.add_row(["Dubhe", np.average(dubhe), np.min(dubhe), np.max(dubhe), np.std(dubhe), np.percentile(dubhe, 25), np.percentile(dubhe, 50), np.percentile(dubhe, 75), np.ptp(dubhe), np.subtract(*np.percentile(dubhe, [75, 25])), ups_downs(dubhe)[0], ups_downs(dubhe)[1]])
     table.add_row(["Elgafar", np.average(elgafar), np.min(elgafar), np.max(elgafar), np.std(elgafar), np.percentile(elgafar, 25), np.percentile(elgafar, 50), np.percentile(elgafar, 75), np.ptp(elgafar), np.subtract(*np.percentile(elgafar, [75, 25])), ups_downs(elgafar)[0], ups_downs(elgafar)[1]])
     table.add_row(["Fawaris", np.average(fawaris), np.min(fawaris), np.max(fawaris), np.std(fawaris), np.percentile(fawaris, 25), np.percentile(fawaris, 50), np.percentile(fawaris, 75), np.ptp(fawaris), np.subtract(*np.percentile(fawaris, [75, 25])), ups_downs(fawaris)[0], ups_downs(fawaris)[1]])
+    table.add_row(["Xuange", np.average(xuange), np.min(xuange), np.max(xuange), np.std(xuange), np.percentile(xuange, 25), np.percentile(xuange, 50), np.percentile(xuange, 75), np.ptp(xuange), np.subtract(*np.percentile(xuange, [75, 25])), ups_downs(xuange)[0], ups_downs(xuange)[1]])
     print(table)
 
     
     plt.rcParams["figure.autolayout"] = True
-    fig, axs = plt.subplots(sharey=True)
+    fig, axs = plt.subplots(sharey=True, sharex=True)
     plt.title("Line graph of multuple currencies")
     plt.xlabel("Day")
     plt.ylabel("Price (euro)")
