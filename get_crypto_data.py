@@ -34,3 +34,16 @@ def get_positions(key):
     return r.json()
 
 
+
+def get_team(key):
+    request_url = f'https://api.basecampcrypto.nl/v1/team?key={key}'
+        
+    try:
+        r = requests.get(request_url)
+    except requests.exceptions.HTTPError as err:
+            print(SystemExit(err))
+    return r.json()
+
+
+print (get_team('Exiq4NbNJg6m9z5N'))
+
