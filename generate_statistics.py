@@ -52,7 +52,7 @@ with open('crypto_daily_prices_365.csv', 'r', encoding='utf8') as data:
 
     
     plt.rcParams["figure.autolayout"] = True
-    fig, axs = plt.subplots(sharey=True, sharex=True)
+    fig, axs = plt.subplots(sharey=True)
     plt.title("Line graph of multuple currencies")
     plt.xlabel("Day")
     plt.ylabel("Price (euro)")
