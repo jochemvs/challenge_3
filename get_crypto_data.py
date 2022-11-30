@@ -14,6 +14,7 @@ def get_history(crypto, key):
     crypto_history_data = np.array(values, dtype=dt)
     return crypto_history_data
 
+
 def get_current_value(crypto, key):
     request_url = f'https://api.basecampcrypto.nl/v1/coin/{crypto}?key={key}'
 
@@ -23,4 +24,13 @@ def get_current_value(crypto, key):
         print(SystemExit(err))
     return r.json()
 
-print (get_current_value('XUA', "Exiq4NbNJg6m9z5N"))
+
+def get_positions(key):
+    request_url = f'https://api.basecampcrypto.nl/v1/positions?key={key}'
+    try:
+        r = requests.get(request_url)
+    except requests.exceptions.HTTPError as err:
+        print(SystemExit(err))
+    return r.json()
+
+
