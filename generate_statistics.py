@@ -46,8 +46,20 @@ with open('crypto_daily_prices_365.csv', 'r', encoding='utf8') as data:
     table.add_row(["Fawaris", np.average(fawaris), np.min(fawaris), np.max(fawaris), np.std(fawaris), np.percentile(fawaris, 25), np.percentile(fawaris, 50), np.percentile(fawaris, 75), np.ptp(fawaris), np.subtract(*np.percentile(fawaris, [75, 25])), ups_downs(fawaris)[0], ups_downs(fawaris)[1]])
     print(table)
 
-    plt.title("Line graph of Albireo")
+    
+    plt.rcParams["figure.autolayout"] = True
+    fig, axs = plt.subplots(sharey=True)
+    plt.title("Line graph of multuple currencies")
     plt.xlabel("Day")
     plt.ylabel("Price (euro)")
-    plt.plot(days, bharani, color="red")
+    axs.plot(days, bharani, color='red', label="Bharani")
+    axs.plot(days, albireo, color='purple', label="Albireo")
+    axs.plot(days, castula, color="green", label="Castula")
+    axs.plot(days, dubhe, color="blue", label="Dubhe")
+    axs.plot(days, elgafar, color="cyan", label="Elgafar")
+    axs.plot(days, fawaris, color="magenta", label="Fawaris")
+    axs.legend()
+    fig.tight_layout()
     plt.show()
+
+    
