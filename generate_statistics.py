@@ -15,6 +15,42 @@ with open('crypto_daily_prices_365.csv', 'r', encoding='utf8') as data:
     elgafar = crypto_data["Elgafar"]
     fawaris = crypto_data["Fawaris"]
     xuange = get_history("XUA", key)['value']
+
+    def alice():
+        lst_portvalues = []
+        current_portfolio_value = -0
+        money_left = 1000000
+        for i in range(len(crypto_data['Albireo'])):
+            day = i
+            stockprice = crypto_data['Albireo'][i]
+            if stockprice < 1500 and money_left != 0:
+                amount_stocks = money_left / stockprice
+                money_left = 0
+                current_portfolio_value = current_portfolio_value + amount_stocks * stockprice
+            if stockprice > 1600 and amount_stocks != 0:
+                current_portfolio_value  = amount_stocks * stockprice
+                money_left = current_portfolio_value
+                amount_stocks = 0
+        return "{:.2f}".format(current_portfolio_value)  
+        
+   
+    def bob():
+        lst_portvalues = []
+        current_portfolio_value = -0
+        money_left = 1000000
+        for i in range(len(crypto_data['Bharani'])):
+            day = i
+            stockprice = crypto_data['Bharani'][i]
+            if stockprice < 1000 and money_left != 0:
+                amount_stocks = money_left / stockprice
+                money_left = 0
+                current_portfolio_value = current_portfolio_value + amount_stocks * stockprice
+            if stockprice > 1100 and amount_stocks != 0:
+                current_portfolio_value  = amount_stocks * stockprice
+                money_left = current_portfolio_value
+                amount_stocks = 0
+        return "{:.2f}".format(current_portfolio_value)         
+    
     def ups_downs(crypto):
         lup = 0
         ldown = 0
@@ -66,4 +102,5 @@ with open('crypto_daily_prices_365.csv', 'r', encoding='utf8') as data:
     fig.tight_layout()
     plt.show()
 
-    
+    print(alice())
+    print(bob())
