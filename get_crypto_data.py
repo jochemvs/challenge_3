@@ -53,3 +53,33 @@ def get_orders(key): #get orders using team key
             print(SystemExit(err))
     return r.json()  
 
+def buy_crypto_per_coin(crypto, amount : int, key):
+    request_url = f'https://api.basecampcrypto.nl/v1/coin/{crypto}/buy?key={key}'
+    data = {"quantity": f'{amount}'}
+    try:
+        r = requests.post(request_url, json = data)
+    except requests.exceptions.HTTPError as err:
+            print(SystemExit(err))
+    return r.json()  
+
+def buy_crypto_per_amount(crypto, amount, key):
+    request_url = f'https://api.basecampcrypto.nl/v1/coin/{crypto}/buy?key={key}'
+    data = {"amount": f'{amount}'}
+    try:
+        r = requests.post(request_url, json = data)
+    except requests.exceptions.HTTPError as err:
+            print(SystemExit(err))
+    return r.json()
+
+def sell_crypto_per_coin(crypto, amount : int, key):
+    request_url = f'https://api.basecampcrypto.nl/v1/coin/{crypto}/sell?key={key}'
+    data = {'quantity': f'{amount}'}
+    try:
+        r = requests.post(request_url, json = data)
+    except requests.exceptions.HTTPError as err:
+            print(SystemExit(err))
+    return r.json()
+
+
+  
+
