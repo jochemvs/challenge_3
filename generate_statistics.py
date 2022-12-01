@@ -33,6 +33,31 @@ def alice():
                 current_portfolio_value  = 0.99 * (amount_stocks * stockprice)
             money_left = current_portfolio_value
             amount_stocks = 0
+    return "{:.2f}".format(current_portfolio_value)
+
+def frank():
+    current_portfolio_value = 0
+    money_left = 1000000
+    for i in range(len(fawaris)):
+        day = i
+        stockprice = fawaris[i]
+        if day == (1) and money_left !=0:
+            amount_stocks = money_left / stockprice
+            money_left = 0
+            current_portfolio_value = current_portfolio_value + amount_stocks * stockprice
+        if stockprice == stockprice * 1.2 and amount_stocks !=0:
+            current_portfolio_value  = 0.99 * (amount_stocks * stockprice)
+            money_left = current_portfolio_value
+            amount_stocks = 0
+
+        if stockprice == stockprice *0.8 and money_left != 0:
+            amount_stocks = money_left / stockprice
+            money_left = 0
+            current_portfolio_value = current_portfolio_value + amount_stocks*stockprice
+        if i == 364:
+            current_portfolio_value  = 0.99 * (amount_stocks * stockprice)
+            money_left = current_portfolio_value
+            amount_stocks = 0
     return "{:.2f}".format(current_portfolio_value)  
     
 
@@ -55,7 +80,7 @@ def bob():
                 current_portfolio_value  = 0.99 * (amount_stocks * stockprice)
             money_left = current_portfolio_value
             amount_stocks = 0
-    return "{:.2f}".format(current_portfolio_value)     
+    return "{:.2f}".format(current_portfolio_value)
 
 def eve():
     current_portfolio_value = 0
@@ -75,7 +100,6 @@ def eve():
             current_portfolio_value  = 0.99 * (amount_stocks * stockprice)
             money_left = current_portfolio_value
             amount_stocks = 0
-    
     return "{:.2f}".format(current_portfolio_value)
 
 def ups_downs(crypto):
@@ -129,6 +153,7 @@ axs.legend()
 fig.tight_layout()
 plt.show()
 
-print(alice())
-print(bob())
-print(eve())
+print("alice:", alice())
+print("bob:", bob())
+print("eve:", eve())
+print("frank:", frank())
