@@ -3,6 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from prettytable import PrettyTable
 from get_crypto_data import get_history
+from findpeaks import findpeaks
 
 key = "Exiq4NbNJg6m9z5N"
 days = get_history("ALB", key)['day']
@@ -125,6 +126,38 @@ axs.plot(days, castula, color="green", label="Castula")
 axs.plot(days, dubhe, color="blue", label="Dubhe")
 axs.plot(days, elgafar, color="cyan", label="Elgafar")
 axs.plot(days, fawaris, color="magenta", label="Fawaris")
+bharani_polyfit = np.polyfit(days, bharani, 15)
+bharani_polygraph = np.poly1d(bharani_polyfit)
+axs.plot(days,bharani_polygraph(days),"r--", color="blue", label="Bharani trendline")
+albireo_polyfit = np.polyfit(days, albireo, 15)
+albireo_polygraph = np.poly1d(albireo_polyfit)
+axs.plot(days, albireo_polygraph(days), "r--", color ="yellow", label="Albireo trendline")
+fp = findpeaks(lookahead=1)
+results = fp.fit(albireo)
+df = results['df']
+peaks_alb_x = df[df['peak']==True]['x'].values
+peaks_alb_y = df[df['peak']==True]['y'].values
+valleys_alb_x = df[df['valley']==True]['x'].values
+valleys_alb_y = df[df['valley']==True]['y'].values
+axs.scatter(peaks_alb_x, peaks_alb_y)
+axs.scatter(valleys_alb_x, valleys_alb_y)
+castula_polyfit = np.polyfit(days, castula, 15)
+castula_polygraph = np.poly1d(castula_polyfit)
+axs.plot(days,castula_polygraph(days),"r--", color="black", label="Castula trendline")
+castula_results = fp.fit(castula)
+df_castula = castula_results['df']
+peaks_cas_x = df_castula[df_castula['peak']==True]['x'].values
+peaks_cas_y = df_castula[df_castula['peak']==True]['y'].values
+valleys_cas_x = df_castula[df_castula['valley']==True]['x'].values
+valleys_cas_y = df_castula[df_castula['valley']==True]['y'].values
+axs.scatter(peaks_cas_x, peaks_cas_y)
+axs.scatter(valleys_cas_x, valleys_cas_y)
+dubhe_polyfit = np.polyfit(days, dubhe, 15)
+dubhe_polygraph = np.poly1d(dubhe_polyfit)
+axs.plot(days,dubhe_polygraph(days),"r--", color="purple", label="Dubhe trendline")
+elgafar_polyfit = np.polyfit(days, elgafar, 15)
+elgafar_polygraph = np.poly1d(elgafar_polyfit)
+axs.plot(days,elgafar_polygraph(days),"r--", color="green", label="Elgafar trendline")
 axs.legend()
 fig.tight_layout()
 plt.show()
