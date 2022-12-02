@@ -158,6 +158,10 @@ peaks_bha_x = bha_df[bha_df['peak']==True]['x'].values
 peaks_bha_y = bha_df[bha_df['peak']==True]['y'].values
 valleys_bha_x = bha_df[bha_df['valley']==True]['x'].values
 valleys_bha_y = bha_df[bha_df['valley']==True]['y'].values
+peaks_bha_x += 1
+peaks_bha_y += 1
+valleys_bha_x += 1
+valleys_bha_y += 1
 axs.scatter(peaks_bha_x, peaks_bha_y)
 axs.scatter(valleys_bha_x, valleys_bha_y)
 axs.plot(days,bharani_polygraph(days),"r--", color="blue", label="Bharani trendline")
@@ -170,6 +174,10 @@ peaks_alb_x = df[df['peak']==True]['x'].values
 peaks_alb_y = df[df['peak']==True]['y'].values
 valleys_alb_x = df[df['valley']==True]['x'].values
 valleys_alb_y = df[df['valley']==True]['y'].values
+peaks_alb_x += 1
+peaks_alb_y += 1
+valleys_alb_y += 1
+valleys_alb_x += 1
 axs.scatter(peaks_alb_x, peaks_alb_y)
 axs.scatter(valleys_alb_x, valleys_alb_y)
 castula_polyfit = np.polyfit(days, castula, 15)
@@ -181,14 +189,60 @@ peaks_cas_x = df_castula[df_castula['peak']==True]['x'].values
 peaks_cas_y = df_castula[df_castula['peak']==True]['y'].values
 valleys_cas_x = df_castula[df_castula['valley']==True]['x'].values
 valleys_cas_y = df_castula[df_castula['valley']==True]['y'].values
+peaks_cas_x +=1
+peaks_cas_y+= 1
+valleys_cas_x+= 1
+valleys_cas_y += 1
 axs.scatter(peaks_cas_x, peaks_cas_y)
 axs.scatter(valleys_cas_x, valleys_cas_y)
 dubhe_polyfit = np.polyfit(days, dubhe, 15)
 dubhe_polygraph = np.poly1d(dubhe_polyfit)
 axs.plot(days,dubhe_polygraph(days),"r--", color="purple", label="Dubhe trendline")
+dubhe_results = fp.fit(dubhe)
+df_dubhe = dubhe_results['df']
+peaks_dub_x = df_dubhe[df_dubhe['peak']==True]['x'].values
+peaks_dub_y = df_dubhe[df_dubhe['peak']==True]['y'].values
+valleys_dub_x = df_dubhe[df_dubhe['valley']==True]['x'].values
+valleys_dub_y = df_dubhe[df_dubhe['valley']==True]['y'].values
+peaks_dub_x +=1
+peaks_dub_y += 1
+valleys_dub_x+= 1
+valleys_dub_y += 1
+axs.scatter(peaks_dub_x, peaks_dub_y)
+axs.scatter(valleys_dub_x, valleys_dub_y)
+
 elgafar_polyfit = np.polyfit(days, elgafar, 15)
 elgafar_polygraph = np.poly1d(elgafar_polyfit)
 axs.plot(days,elgafar_polygraph(days),"r--", color="green", label="Elgafar trendline")
+elgafar_results = fp.fit(elgafar)
+df_elgafar = elgafar_results['df']
+peaks_elg_x = df_elgafar[df_elgafar['peak']==True]['x'].values
+peaks_elg_y = df_elgafar[df_elgafar['peak']==True]['y'].values
+valleys_elg_x = df_elgafar[df_elgafar['valley']==True]['x'].values
+valleys_elg_y = df_elgafar[df_elgafar['valley']==True]['y'].values
+peaks_elg_x +=1
+peaks_elg_y += 1
+valleys_elg_x+= 1
+valleys_elg_y += 1
+axs.scatter(peaks_elg_x, peaks_elg_y)
+axs.scatter(valleys_elg_x, valleys_elg_y)
+
+fawaris_polyfit = np.polyfit(days, fawaris, 15)
+fawaris_polygraph = np.poly1d(fawaris_polyfit)
+axs.plot(days,fawaris_polygraph(days),"r--", color="red", label="Elgafar trendline")
+fawaris_results = fp.fit(fawaris)
+df_fawaris = fawaris_results['df']
+peaks_faw_x = df_fawaris[df_fawaris['peak']==True]['x'].values
+peaks_faw_y = df_fawaris[df_fawaris['peak']==True]['y'].values
+valleys_faw_x = df_fawaris[df_fawaris['valley']==True]['x'].values
+valleys_faw_y = df_fawaris[df_fawaris['valley']==True]['y'].values
+peaks_faw_x +=1
+peaks_faw_y += 1
+valleys_faw_x+= 1
+valleys_elg_y += 1
+axs.scatter(peaks_faw_x, peaks_faw_y)
+axs.scatter(valleys_faw_x, valleys_faw_y)
+
 axs.legend()
 fig.tight_layout()
 plt.show()
