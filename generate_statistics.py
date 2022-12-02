@@ -114,7 +114,7 @@ table.add_row(["Fawaris", np.average(fawaris), np.min(fawaris), np.max(fawaris),
 table.add_row(["Xuange", np.average(xuange), np.min(xuange), np.max(xuange), np.std(xuange), np.percentile(xuange, 25), np.percentile(xuange, 50), np.percentile(xuange, 75), np.ptp(xuange), np.subtract(*np.percentile(xuange, [75, 25])), ups_downs(xuange)[0], ups_downs(xuange)[1]])
 print(table)
 
-
+fp = findpeaks(lookahead=1)
 plt.rcParams["figure.autolayout"] = True
 fig, axs = plt.subplots(sharey=True)
 plt.title("Line graph of multuple currencies")
@@ -128,11 +128,18 @@ axs.plot(days, elgafar, color="cyan", label="Elgafar")
 axs.plot(days, fawaris, color="magenta", label="Fawaris")
 bharani_polyfit = np.polyfit(days, bharani, 15)
 bharani_polygraph = np.poly1d(bharani_polyfit)
+bha_results = fp.fit(bharani)
+bha_df = bha_results['df']
+peaks_bha_x = bha_df[bha_df['peak']==True]['x'].values
+peaks_bha_y = bha_df[bha_df['peak']==True]['y'].values
+valleys_bha_x = bha_df[bha_df['valley']==True]['x'].values
+valleys_bha_y = bha_df[bha_df['valley']==True]['y'].values
+axs.scatter(peaks_bha_x, peaks_bha_y)
+axs.scatter(valleys_bha_x, valleys_bha_y)
 axs.plot(days,bharani_polygraph(days),"r--", color="blue", label="Bharani trendline")
 albireo_polyfit = np.polyfit(days, albireo, 15)
 albireo_polygraph = np.poly1d(albireo_polyfit)
-axs.plot(days, albireo_polygraph(days), "r--", color ="yellow", label="Albireo trendline")
-fp = findpeaks(lookahead=1)
+axs.plot(days, albireo_polygraph(days), "r--", color ="green", label="Albireo trendline")
 results = fp.fit(albireo)
 df = results['df']
 peaks_alb_x = df[df['peak']==True]['x'].values
