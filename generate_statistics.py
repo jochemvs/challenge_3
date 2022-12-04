@@ -13,7 +13,6 @@ castula = get_history("CAS", key)['value']
 dubhe = get_history("DUB", key)['value']    
 elgafar = get_history("ELG", key)['value']
 fawaris = get_history("FAW", key)['value']
-xuange = get_history("XUA", key)['value']
 
 def alice():
     current_portfolio_value = -0
@@ -135,8 +134,12 @@ table.add_row(["Castula", np.average(castula), np.min(castula), np.max(castula),
 table.add_row(["Dubhe", np.average(dubhe), np.min(dubhe), np.max(dubhe), np.std(dubhe), np.percentile(dubhe, 25), np.percentile(dubhe, 50), np.percentile(dubhe, 75), np.ptp(dubhe), np.subtract(*np.percentile(dubhe, [75, 25])), ups_downs(dubhe)[0], ups_downs(dubhe)[1]])
 table.add_row(["Elgafar", np.average(elgafar), np.min(elgafar), np.max(elgafar), np.std(elgafar), np.percentile(elgafar, 25), np.percentile(elgafar, 50), np.percentile(elgafar, 75), np.ptp(elgafar), np.subtract(*np.percentile(elgafar, [75, 25])), ups_downs(elgafar)[0], ups_downs(elgafar)[1]])
 table.add_row(["Fawaris", np.average(fawaris), np.min(fawaris), np.max(fawaris), np.std(fawaris), np.percentile(fawaris, 25), np.percentile(fawaris, 50), np.percentile(fawaris, 75), np.ptp(fawaris), np.subtract(*np.percentile(fawaris, [75, 25])), ups_downs(fawaris)[0], ups_downs(fawaris)[1]])
-table.add_row(["Xuange", np.average(xuange), np.min(xuange), np.max(xuange), np.std(xuange), np.percentile(xuange, 25), np.percentile(xuange, 50), np.percentile(xuange, 75), np.ptp(xuange), np.subtract(*np.percentile(xuange, [75, 25])), ups_downs(xuange)[0], ups_downs(xuange)[1]])
 print(table)
+
+print("alice:", alice())
+print("bob:", bob())
+print("eve:", eve())
+print("frank:", frank())
 
 fp = findpeaks(lookahead=1)
 plt.rcParams["figure.autolayout"] = True
@@ -191,9 +194,6 @@ elgafar_polygraph = np.poly1d(elgafar_polyfit)
 axs.plot(days,elgafar_polygraph(days),"r--", color="green", label="Elgafar trendline")
 axs.legend()
 fig.tight_layout()
+plt.savefig("crypto_graph.png")
 plt.show()
 
-print("alice:", alice())
-print("bob:", bob())
-print("eve:", eve())
-print("frank:", frank())
