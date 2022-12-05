@@ -126,6 +126,45 @@ def ups_downs(crypto):
     return [up_days, down_days]
 
 
+def dave():
+    current_portfolio_value = 0
+    money_left = 1000000
+    down_days = 0
+    up_days = 0
+    for f in range(len(dubhe)):
+        if f == 0:
+            current_value = dubhe[f]
+            prev_value = 0
+        elif f > 0:
+            prev_value = dubhe[f-1]
+            current_value = dubhe[f]
+        if prev_value > current_value:
+            down_days +=1
+            up_days = 0
+        elif prev_value < current_value:
+            up_days +=1
+            down_days = 0
+        for i in range(len(dubhe)):
+            day = i
+            stockprice = dubhe[i]
+            amount_stocks = 0
+            if down_days % 3 == 0  and money_left !=0:
+                amount_stocks = money_left / stockprice
+                money_left = 0
+                current_portfolio_value = current_portfolio_value + amount_stocks * stockprice
+            if up_days % 3 == 0 and amount_stocks !=0:
+                current_portfolio_value  = 0.99 * (amount_stocks * stockprice)
+                money_left = current_portfolio_value
+                amount_stocks = 0
+                print ("test", current_portfolio_value)
+            if i == 364:
+                if  amount_stocks > 0:
+                    current_portfolio_value  = 0.99 * (amount_stocks * stockprice)
+                    money_left = current_portfolio_value
+                    amount_stocks = 0
+            return "{:.2f}".format(current_portfolio_value)   
+
+
 table = PrettyTable()
 table.field_names = ["Name","AVG", "MIN", "MAX", "SD", "Q1", "Q2", "Q3", "RNG", "IQR", "UPS", "DOWNS"]
 table.add_row(["Albireo", np.average(albireo), np.min(albireo), np.max(albireo), np.std(albireo), np.percentile(albireo, 25), np.percentile(albireo, 50), np.percentile(albireo, 75), np.ptp(albireo), np.subtract(*np.percentile(albireo, [75, 25])), ups_downs(albireo)[0], ups_downs(albireo)[1]])
@@ -136,10 +175,7 @@ table.add_row(["Elgafar", np.average(elgafar), np.min(elgafar), np.max(elgafar),
 table.add_row(["Fawaris", np.average(fawaris), np.min(fawaris), np.max(fawaris), np.std(fawaris), np.percentile(fawaris, 25), np.percentile(fawaris, 50), np.percentile(fawaris, 75), np.ptp(fawaris), np.subtract(*np.percentile(fawaris, [75, 25])), ups_downs(fawaris)[0], ups_downs(fawaris)[1]])
 print(table)
 
-print("alice:", alice())
-print("bob:", bob())
-print("eve:", eve())
-print("frank:", frank())
+
 
 fp = findpeaks(lookahead=1)
 plt.rcParams["figure.autolayout"] = True
@@ -255,9 +291,9 @@ def carol():
     current_portfolio_value = -0
     money_left = 1000000
     amount_stocks = 0
-    for i in range(len(bharani)):
+    for i in range(len(castula)):
         day = i
-        stockprice = bharani[i]
+        stockprice = castula[i]
         if stockprice in valleys_cas_y and money_left != 0:
             amount_stocks = money_left / stockprice
             money_left = 0
@@ -273,3 +309,10 @@ def carol():
             amount_stocks = 0
     return "{:.2f}".format(current_portfolio_value)
 
+
+print("alice:", alice())
+print("bob:", bob())
+print ("carol", carol())
+print ("dave:", dave())
+print("eve:", eve())
+print("frank:", frank())
