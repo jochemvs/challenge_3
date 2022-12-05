@@ -251,3 +251,25 @@ fig.tight_layout()
 plt.savefig("crypto_graph.png")
 plt.show()
 
+def carol():
+    current_portfolio_value = -0
+    money_left = 1000000
+    amount_stocks = 0
+    for i in range(len(bharani)):
+        day = i
+        stockprice = bharani[i]
+        if stockprice in valleys_cas_y and money_left != 0:
+            amount_stocks = money_left / stockprice
+            money_left = 0
+            current_portfolio_value = current_portfolio_value + amount_stocks * stockprice
+        elif stockprice in peaks_cas_y and amount_stocks != 0:
+            current_portfolio_value  = 0.99 * (amount_stocks * stockprice)
+            money_left = current_portfolio_value
+            amount_stocks = 0
+        if i == 364:
+            if amount_stocks > 0:
+                current_portfolio_value  = 0.99 * (amount_stocks * stockprice)
+            money_left = current_portfolio_value
+            amount_stocks = 0
+    return "{:.2f}".format(current_portfolio_value)
+
